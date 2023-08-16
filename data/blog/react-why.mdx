@@ -1,0 +1,120 @@
+---
+title: Delving into the world of React
+tags: ['react', 'virtual-dom', 'change detection', 'component based UI']
+date: '2023-07-20'
+images: ['/static/images/posts/react-why.jpg']
+summary: 'The crux of the main problem front-end frameworks set out to solve: change detection, meaning detecting changes to application state so that the UI can be updated accordingly. Change detection is the fundamental feature of front-end frameworks, and the framework authors’ solution to this one problem determines everything else about it: developer experience, user experience, API surface area, community satisfaction and involvement, etc., etc.'
+draft: false
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/react-proof.jpg"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+The crux of the main problem front-end frameworks set out to solve: change detection, meaning detecting changes to application state so that the UI can be updated accordingly. Change detection is the fundamental feature of front-end frameworks, and the framework authors’ solution to this one problem determines everything else about it: developer experience, user experience, API surface area, community satisfaction and involvement, etc., etc.
+
+### “I’ll manage state so that I know when it changes.” — React
+
+True to its de-facto tagline, change detection in React is “just JavaScript.” Developers simply update state by calling directly into the React runtime through its API; since React is notified to make the state change, it also knows that it needs to re-render the component.
+
+The key piece here is the setCount function returned to us by React’s useState hook. When this function is called, React can use its internal virtual DOM diffing algorithm to determine which pieces of the page to re-render. Note that this means the React runtime has to be included in the application bundle downloaded by the user.
+
+```
+React’s change detection paradigm is straightforward: the application state
+is maintained inside the framework (with APIs exposed to the developer for
+updating it) so that React knows when to re-render.
+```
+
+### They got great documentation
+
+I recently went through the entire beta React docs (took me about 3 weeks) and was blown away by the quality of the tutorials. The live code playgrounds and challenges are amazing. With the recent debate about reactivity and which framework implements it best (solid vs. react vs. vue vs. svelte), I felt that what mattered most to me as a junior dev is the quality of the documentation. I gained a strong enough understanding of the complicated concepts (dependency arrays and the useEffect hook) because the docs were so good. There is always room for improvement in JS land and other frameworks are constantly innovating, but the thing I always fallback to is: how good is the documentation?
+
+## why react?
+
+- Great way to build component based UIs
+
+1. The virtual DOM. When I'm writing jQuery-based code, I have to write both a component template and code that updates the DOM in response to input; when I'm writing code for a virtual DOM, the component template is sufficient to update the DOM and I don't have to write that extra code, so there are fewer chances for bugs to creep in.
+
+1.1. Virtual DOM -- but this also includes DOM diffing, which makes it extremely efficient to re-render "the entire app" whenever a change happens (because you're not actually rendering it all but you largely don't have to know that).
+
+2. HTML-like syntax embedded in Javascript (JSX). I didn't like this at first until I configured Sublime Text to highlight embedded HTML correctly. Embedded HTML has pros and cons, but I think it's a net positive.
+
+2.1. JSX -- but unlike HTML this is just syntactic sugar for the underlying API. It may look like someone got HTML in your JS but it's really just syntax for nesting components and the rest is plain old JavaScript (compared to HTML templates where you have to learn a proprietary template language to do the same things you can already do in JS).
+
+3. Unidirectional (one-way) data flow with pure components. This isn't enforced by React itself but if you stick to constructing your components this way (which companion libraries like Redux encourage you to do), your entire application becomes easier to reason about because you can think of your React code as one giant render function.
+
+- React projects also typically include new tech like ES2015, webpack, hot code reloading, and Redux with its time-traveling debugger. You can build your own stack that uses a virtual DOM library, embedded HTML, ES2015, and so on, but it's helpful to start with a common stack that many people understand. That's why React is interesting.
+
+- Combined with immutable state manager like Redux, it can dramatically simplify front end development.
+
+## Things to keep in mind while doing react
+
+- Functional components, props, hooks like useEffect, useState and useRef.
+
+- useEffect hook is automatically called when mounting is complete or dependency value is changed.
+
+- useState hook is called to change variable data.
+
+- useRef can be used to directly access the HTML element.
+
+- Events onClick, onBlur and onChange. Camelcase are used.
+
+- Data passing bw parent and child can be done with props but from child to parent need to make use of callback functions
+
+- simple state related stuff across components can be done with context api but for complicated stuff use state managent libraries like redux.
+
+- About nested JSX is that it must return a single element. This one parent element would wrap all of the other levels of nested elements. Otherwise JSX will not be able to transpile down to Javascript with Babel.
+
+- To put comments inside JSX, you use the syntax {/*  */} to wrap around the comment text.
+
+- With React, we can render JSX directly to the HTML DOM using React's rendering API known as ReactDOM.
+
+- One key difference in JSX is that you can no longer use the word class to define HTML classes. This is because class is a reserved word in JavaScript. Instead, JSX uses className.
+
+- Any JSX element can be written with a self-closing tag, and every element must be closed.
+
+- One important thing to note is that React requires your function name to begin with a capital letter.
+
+- Two ways to create react component
+
+```
+const MyComponent = function() {
+ return (
+    <div className='customClass' />
+  );
+}
+```
+
+Defining a component in this way creates a stateless functional component.
+
+```
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+     return (
+       <div>
+       <h1>Hello React!</h1>
+       </div>
+     )
+  }
+};
+```
+
+This creates an ES6 class MyComponent which extends the React.Component class. So the MyComponent class now has access to many useful React features, such as local state and lifecycle hooks.
+
+- Component composition is one of React's powerful features. When you work with React, it is important to start thinking about your user interface in terms of components like the App example in the last challenge. You break down your UI into its basic building blocks, and those pieces become the components. This helps to separate the code responsible for the UI from the code responsible for handling your application logic. It can greatly simplify the development and maintenance of complex projects.
+
+## more resources and credits
+
+- [free code camp](https://www.freecodecamp.org/learn/front-end-development-libraries/)
+- [react patterns](http://lucasmreis.github.io/blog/simple-react-patterns/)
+- [common mistakes](https://www.joshwcomeau.com/react/common-beginner-mistakes/)

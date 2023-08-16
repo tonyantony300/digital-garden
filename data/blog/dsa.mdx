@@ -1,0 +1,118 @@
+---
+title: Data Structures and Algorithms
+tags: ['Data structure', 'algorithm', 'computer science', 'software Engineering']
+date: '2023-07-12'
+images: ['/static/images/posts/matrix.jpg']
+draft: false
+summary: When you think about code, what first comes to my mind is the ability of it copy itself and run the same time at multiple places. Once you write a piece of code and unleash it to the world, It can bring you infinite leverage or infinite productivity. Once it is on the internet, anyone can copy it, run it, deploy it and distribute it. You rest while your code does the work, which is almost like money invested in assets, which will keep bring in productivity.
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/algo.png"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+Do not get intimidated by the Image and name on this article. Algorithm is just a procedure written in text that could be understood by machine and Data structure is a way to organize data.
+
+When you think about code, what first comes to my mind is the ability of it copy itself and run the same time at multiple places. Once you write a piece of code and unleash it to the world, It can bring you infinite leverage or infinite productivity. Once it is on the internet, anyone can copy it, run it, deploy it and distribute it. You rest while your code does the work, which is almost like money invested in assets, which will keep bring in productivity.
+
+- What does a good piece of code mean? What measures a good algorithm?
+- The answer to this question brings us to BigO notation which is used to measure time complexity or efficiency of a particular algorithm.
+- To make it more digestible let’s consider a loop, time complexity is O(n). For nested loops have time complexity of 0(n^2), O(n^3)..etc.
+- Three things to remember when it comes to analysing time complexity, 1) Growth is in respect to input 2) Constants are dropped 3) Worst case is considerd.
+
+## Search
+
+### Linear search
+
+- Array data structure is considered for input. Direct iterating over each elements and comparing with value. Time complexity O(n)
+
+### Binary Search
+
+- As the name suggests, input is logically divided into two parts and value is compared to find which half it belongs.
+- This process is repeated until value is found. Complexity O(log n)
+
+```JavaScript
+function binarySearch(array, target) {
+  let path = [];
+  let left = 0;
+  let right = array.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    path.push(array[mid]);
+    if (array[mid] === target) {
+      return path;
+    }
+    else if (array[mid] < target) {
+      left = mid + 1;
+    }
+    else {
+      right = mid - 1;
+    }
+  }
+  return "Value Not Found";
+}
+```
+
+### Palindrome Checker
+
+```JavaScript
+function palindrome(str) {
+  let newString = str.replace(/[^a-z0-9]/gi,"").toLowerCase()
+  let reversed = newString.split("").reverse().join("")
+  return reversed === newString
+}
+```
+
+### Roman numerals converter
+
+```JavaScript
+function convertToRoman(num) {
+ let romanArray = [['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]]
+ let string = ""
+ for(let i = 0; i < romanArray.length; i++){
+  while (num >= romanArray[i][1] ){
+   string += romanArray[i][0]
+   num -= romanArray[i][1]
+   }
+}
+ return string.toUpperCase();
+}
+```
+
+### Ceasers cipher decoder
+
+```JavaScript
+function rot13(str) {
+let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let alphaArray = alphabet.split("")
+let alphabetCeaser = "NOPQRSTUVWXYZABCDEFGHIJKLM"
+let stringArray = str.split("")
+let decodedArray= []
+for(let i=0; i <= str.length; i++){
+if(alphaArray.indexOf(stringArray[i]) > -1){
+decodedArray.push(alphabetCeaser[alphaArray.indexOf(stringArray[i])])
+}else {
+decodedArray.push(stringArray[i])
+}
+}
+return decodedArray.join("");
+}
+
+```
+
+### Phone number checker
+
+```JavaScript
+function telephoneCheck(str) {
+let pattern = /^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/;
+let match = pattern.test(str);
+return match;
+}
+```

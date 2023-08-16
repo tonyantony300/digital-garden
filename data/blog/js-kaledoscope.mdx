@@ -1,0 +1,154 @@
+---
+title: Javascript - looking closer
+tags: ['Javascript']
+date: '2023-06-06'
+images: ['/static/images/posts/js.jpg']
+summary: Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that is available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually have to introduce new concepts to avoid repeating ourselves too much.
+draft: false
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/js.jpg"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+Typical adult English speakers have some 20,000 words in their vocabulary. Few programming languages come with 20,000 commands built in. And the vocabulary that is available tends to be more precisely defined, and thus less flexible, than in human language. Therefore, we usually have to introduce new concepts to avoid repeating ourselves too much.
+
+Because a function has to jump back to the place that called it when it returns, the computer must remember the context from which the call happened. In one case, console.log has to return to the greet function when it is done. In the other case, it returns to the end of the program.The place where the computer stores this context is the call stack. Every time a function is called, the current context is stored on top of this stack. When a function returns, it removes the top context from the stack and uses that context to continue execution.
+
+The ability to treat functions as values, combined with the fact that local bindings are re-created every time a function is called, brings up an interesting question. What happens to local bindings when the function call that created them is no longer active? This feature—being able to reference a specific instance of a local binding in an enclosing scope—is called closure. A function that references bindings from local scopes around it is called a closure. This behavior not only frees you from having to worry about lifetimes of bindings but also makes it possible to use function values in some creative ways.
+
+### Functions and side effects
+
+Functions can be roughly divided into those that are called for their side effects and those that are called for their return value. (Though it is definitely also possible to both have side effects and return a value.)
+
+Importance of Naming function properly
+
+How difficult it is to find a good name for a function is a good indication of how clear a concept it is that you’re trying to wrap.
+
+### Data Structures: Objects and Arrays
+
+Zero-based counting has a long tradition in technology and in certain ways makes a lot of sense, but it takes some getting used to. Think of the index as the amount of items to skip, counting from the start of the array.
+
+Almost all JavaScript values have properties. The exceptions are null and undefined. If you try to access a property on one of these nonvalues, you get an error.
+
+If you want to extract the property named by the value held in the binding i, you say value[i]
+
+Properties whose names aren’t valid binding names or valid numbers have to be quoted.
+
+```
+let descriptions = {
+work: "Went to work",
+"touched tree": "Touched a tree"
+};
+
+```
+
+To find out what properties an object has, you can use the Object.keys function. You give it an object, and it returns an array of strings—the object’s property names.
+
+```
+console.log(Object.keys({x: 0, y: 0, z: 2}));
+// → ["x", "y", "z"]
+```
+
+### Array loops
+
+```
+for (let i = 0; i < 10; i++) {
+console.log("Hello World!");
+}
+```
+
+- when it comes to iterating over items for algorithm scripting, ordinary, basic syntax provides more granual control over the process than lets say, map or forEach.
+
+There is a simpler way to write such loops in modern JavaScript.
+
+```
+for (let entry of JOURNAL) {
+console.log(`${entry.events.length} events.`);
+}
+```
+
+When a for loop looks like this, with the word of after a variable definition, it will loop over the elements of the value given after of. This works not only for arrays but also for strings and some other data structures.
+
+For a few years, things go great for Jacques. But at some point he loses his job. Because he lives in a nasty country where having no job means having no medical services, he is forced to take employment with a circus where he performs as The Incredible Squirrelman, stuffing his mouth with peanut butter before every show.
+
+Another fundamental array method is slice, which takes start and end indices and returns an array that has only the elements between them. The start index is inclusive, the end index exclusive.
+
+The concat method can be used to glue arrays together to create a new array, similar to what the + operator does for strings.
+
+Methods are functions that live in properties and (usually) act on the value they are a property of.
+
+### Strings and their properties
+
+But these types do have built-in properties. Every string value has a number of methods. Some very useful ones are slice and indexOf, which resemble the array methods of the same name.
+
+### The Math Object
+
+The Math object is used as a container to group a bunch of related functionality. There is only one Math object, and it is almost never useful as a value. Rather, it provides a namespace so that all these functions and values do not have to be global bindings.
+
+Math.floor (which rounds down to the nearest whole number) on the result of Math.random.There are also the functions Math.ceil (for “ceiling”, which rounds up to a whole number), Math.round (to the nearest whole number), and Math.abs, which takes the absolute value of a number, meaning it negates negative values but leaves positive ones as they are.
+
+### Destructuring
+
+If you know the value you are binding is an array, you can use square brackets to “look inside” of the value, binding its contents.
+
+### JSON
+
+JavaScript gives us the functions JSON.stringify and JSON.parse to convert data to and from this format. The first takes a JavaScript value and returns a JSON-encoded string. The second takes such a string and converts it to the value it encodes.
+
+Objects and arrays (which are a specific kind of object) provide ways to group several values into a single value. Conceptually, this allows us to put a bunch of related things in a bag and run around with the bag, instead of wrapping our arms around all of the individual things and trying to hold on to them separately.
+
+Objects, as generic blobs of values, can be used to build all sorts of data structures. A common data structure is the list (not to be confused with array). A list is a nested set of objects, with the first object holding a reference to the second, the second to the third, and so on.
+
+```
+  let list = {
+    value: 1,
+    rest: {
+      value: 2,
+      rest: {
+        value: 3,
+        rest: null
+      }
+    }
+  };
+
+```
+
+### Higher-Order Functions
+
+to reduce complexity and thus mistakes, via proper function names/ passing functions instead of whole definitions.
+
+In the context of programming, these kinds of vocabularies are usually called abstractions. Abstractions hide details and give us the ability to talk about problems at a higher (or more abstract) level.
+
+There is a built-in array method, forEach, that provides something like a for/of loop as a higher-order function.
+
+```
+["A", "B"].forEach(l => console.log(l))
+
+```
+
+- Summarizing with reduce - Another common thing to do with arrays is to compute a single value from them. It builds a value by repeatedly taking a single element from the array and combining it with the current value.
+
+```
+function reduce(array, combine, start) {
+let current = start;
+for (let element of array) {
+current = combine(current, element);
+}
+return current;
+}
+
+```
+
+Higher-order functions start to shine when you need to compose operations.
+
+Being able to pass function values to other functions is a deeply useful aspect of JavaScript. It allows us to write functions that model computations with “gaps” in them. The code that calls these functions can fill in the gaps by providing function values.
+
+In a way, some is a version of the || operator that acts on arrays, and every is like the && operator.

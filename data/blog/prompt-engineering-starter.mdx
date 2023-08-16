@@ -1,0 +1,151 @@
+---
+title: A guide on the LLMs
+tags: ['Engineering', 'prompt', 'LLM']
+date: '2023-05-16'
+images: ['/static/images/posts/intelligence.jpg']
+summary: There’s an old adage that computers will only do what you tell them to do. **Throw that advice out the window. Prompt engineering inverts this wisdom**. It’s like programming in natural language against a non-deterministic computer that will do anything that you haven’t guided it away from doing.
+draft: false
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/intelligence.jpg"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+There’s an old adage that computers will only do what you tell them to do. **Throw that advice out the window. Prompt engineering inverts this wisdom**. It’s like programming in natural language against a non-deterministic computer that will do anything that you haven’t guided it away from doing.
+
+A large language model is a prediction engine that takes a sequence of words and tries to predict the most likely sequence to come after that sequence. It does this by assigning a probability to likely next sequences and then samples from those to choose one. The process repeats until some stopping criteria is met.
+Large language models learn these probabilities by training on large corpuses of text. A consequence of this is that the models will cater to some use cases better than others (e.g. if it’s trained on GitHub data, it’ll understand the probabilities of sequences in source code really well). Another consequence is that the model may generate statements that seem plausible, but are actually just random without being grounded in reality.
+
+A prompt, sometimes referred to as context, is the text provided to a model before it begins generating output. It guides the model to explore a particular area of what it has learned so that the output is relevant to your goals. As an analogy, if you think of the language model as a source code interpreter, then a prompt is the source code to be interpreted.
+
+**We design prompts so that normal users don’t stumble outside of our intended interactions – but always assume that a determined user will be able to bypass our prompt constraints.**
+
+In applications where a user is interacting with a model dynamically, such as chatting with the model, there will typically be portions of the prompt that are never intended to be seen by the user. These hidden portions may occur anywhere, though there is almost always a hidden prompt at the start of a conversation.
+Typically, this includes an initial chunk of text that sets the tone, model constraints, and goals, along with other dynamic information that is specific to the particular session – user name, location, time of day, etc...
+The model is static and frozen at a point in time, so if you want it to know current information, like the time or the weather, you must provide it.
+
+Prompts tend to be append-only, because you want the bot to have the entire context of previous messages in the conversation. Language models, in general, are stateless and won’t remember anything about previous requests to them, so you always need to include everything that it might need to know that is specific to the current session.
+
+A major downside of this is that the leading language model architecture, the Transformer, has a fixed input and output size – at a certain point the prompt can’t grow any larger. The total size of the prompt, sometimes referred to as the “context window”, is model dependent. For GPT-3, it is 4,096 tokens. For GPT-4, it is 8,192 tokens or 32,768 tokens depending on which variant you use.
+
+If your context grows too large for the model, the most common tactic is the truncate the context in a sliding window fashion. If you think of a prompt as hidden initialization prompt + messages[], usually the hidden prompt will remain unaltered, and the messages[] array will take the last N messages.
+You may also see more clever tactics for prompt truncation – such as discarding only the user messages first, so that the bot's previous answers stay in the context for as long as possible, or asking an LLM to summarize the conversation and then replacing all of the messages with a single message containing that summary. There is no correct answer here and the solution will depend on your application.
+
+**you should always assume that any data exposed to the language model will eventually be seen by the user. Never place any information in a prompt that you wouldn’t visually render for someone to read on screen.**
+
+Up above, we used an analogy of prompts as the “source code” that a language model “interprets”. **Prompt engineering is the art of writing prompts to get the language model to do what we want it to do** – just like software engineering is the art of writing source code to get computers to do what we want them to do.
+When writing good prompts, you have to account for the idiosyncrasies of the model(s) you’re working with. The strategies will vary with the complexity of the tasks. You’ll have to come up with mechanisms to constrain the model to achieve reliable results, incorporate dynamic data that the model can’t be trained on, account for limitations in the model’s training data, design around context limits, and many other dimensions.
+
+In March of 2023, Princeton and Google released a paper “ReAct: Synergizing Reasoning and Acting in Language Models”, where they introduce a variant of command grammars that allows for fully autonomous interactive execution of actions and retrieval of data.
+
+The model is instructed to return a thought and an action that it would like to perform. Another agent (e.g. our client) then performs the action and returns it to the model as an observation. The model will then loop to return more thoughts and actions until it returns an answer.
+This is an incredibly powerful technique, effectively allowing the bot to be its own research assistant and possibly take actions on behalf of the user. Combined with a powerful command grammar, the bot should rapidly be able to answer a massive set of user requests.
+
+We provide this table to the model in Markdown format, which the language model handles **incredibly well** – presumably because OpenAI trains heavily on data from GitHub.There are two broad buckets that prompt engineering approaches fall into.
+
+### Give a Bot a Fish
+
+The “give a bot a fish” bucket is for scenarios when you can explicitly give the bot, in the hidden context, all of the information it needs to do whatever task is requested of it.
+
+```
+Brex is a platform for managing business expenses.
+
+The following is a travel expense policy on Brex:
+
+- Airline highest fare class for flights under 6 hours is economy.
+- Airline highest fare class for flights over 6 hours is premium economy.
+- Car rentals must have an average daily rate of $75 or under.
+- Lodging must have an average nightly rate of $400 or under.
+- Lodging must be rated 4 stars or higher.
+- Meals from restaurants, food delivery, grocery, bars & nightlife must be under $75
+- All other expenses must be under $5,000.
+- Reimbursements require review.
+
+The hotel options are:
+| Hotel Name | Price | Reviews |
+| --- | --- | --- |
+| Hilton Financial District | $109/night | 3.9 stars |
+| Hotel VIA | $131/night | 4.4 stars |
+| Hyatt Place San Francisco | $186/night | 4.2 stars |
+| Hotel Zephyr | $119/night | 4.1 stars review |
+
+The flight options are:
+| Airline | Flight Time | Duration | Number of Stops | Class | Price |
+| --- | --- | --- | --- | --- | --- |
+| United | 5:30am-7:37am | 2hr 7 min | Nonstop | Economy | $248 |
+| Delta | 1:20pm-3:36pm | 2hr 16 min | Nonstop | Economy | $248 |
+| Alaska | 9:50pm-11:58pm | 2hr 8 min | Nonstop | Premium | $512 |
+
+An employee is booking travel to San Francisco for February 20th to February 25th.
+
+Recommend a hotel and flight that are in policy. Keep the recommendation concise, no longer than a sentence or two, but include pleasantries as though you are a friendly colleague helping me out:
+
+```
+
+### Teach a Bot to Fish
+
+Sometimes you’ll want the bot to have the capability to perform actions on the user’s behalf, like adding a memo to a receipt or plotting a chart. Or perhaps we want it to retrieve data in more nuanced ways than semantic search would allow for, like retrieving the past 90 days of expenses.
+Large language models are few-shot learners, meaning that they can learn a new task by being provided just a few examples. In general, the more examples you provide the better off you’ll be – but that also eats into your token budget, so it’s a balance.
+
+## Strategies
+
+1. **_For one-off objects, enumerating fields + values in a normal bulleted list works pretty well_**
+
+2. **_Markdown tables are great for scenarios where you have many items of the same type to enumerate.Markdown tables work really well for many use cases and should be preferred due to their density and ability for the model to handle them reliably, but you may run into scenarios where you have many columns and the model struggles with it or every item has some custom attributes and it doesn’t make sense to have dozens of columns of empty data._**
+
+3. **_In these scenarios, JSON is another format that the model handles really well. The close proximity of keys to their values makes it easy for the model to keep the mapping straight._**
+
+4. **_Occasionally you’ll want to include freeform text in a prompt that you would like to delineate from the rest of the prompt – such as embedding a document for the bot to reference. In these scenarios, surrounding the document with triple backticks, ```, works well._**
+
+5. **_Not all data is flat and linear. Sometimes you’ll need to embed data that is nested or has relations to other data. In these scenarios, lean on JSON_**
+
+Sometimes you will bang your head on a prompt trying to get the model to output reliable results, but, no matter what you do, it just won’t work. This will frequently happen when the bot’s final output requires intermediate thinking, but you ask the bot only for the output and nothing else.you simply have to ask the bot to think step-by-step.
+
+If we simply add **“Let’s think step-by-step” before**, the model gets the correct answer. Using Chain-of-Thought prompting will consume more tokens, resulting in increased price and latency, but the results are noticeably more reliable for many scenarios. It’s a valuable tool to use when you need the bot to do something complex and as reliably as possible.
+
+[full credits](https://github.com/brexhq/prompt-engineering)
+
+## Transformers - How does it work ?
+
+- [Attention is All you need](https://www.youtube.com/watch?v=iDulhoQ2pro)
+
+- First, we take a sequence of words and represent it as a grid of numbers: each column of the grid is a separate word, and each row of the grid is a measurement of some property of that word. Words with similar meanings are likely to have similar numerical values on a row-by-row basis.
+  (During the training process, we create a dictionary of all possible words, with a column of numbers for each of those words. More on this later!)
+- This grid is called the "context". Typical systems will have a context that spans several thousand columns and several thousand rows. Right now, context length (column count) is rapidly expanding (1k to 2k to 8k to 32k to 100k+!!) while the dimensionality of each word in the dictionary (row count) is pretty static at around 4k to 8k...
+- Anyhow, the Transformer architecture takes that grid and passes it through a multi-layer transformation algorithm. The functionality of each layer is identical: receive the grid of numbers as input, then perform a mathematical transformation on the grid of numbers, and pass it along to the next layer.
+  Most systems these days have around 64 or 96 layers.
+- After the grid of numbers has passed through all the layers, we can use it to generate a new column of numbers that predicts the properties of some word that would maximize the coherence of the sequence if we add it to the end of the grid. We take that new column of numbers and comb through our dictionary to find the actual word that most-closely matches the properties we're looking for.
+- That word is the winner! We add it to the sequence as a new column, remove the first-column, and run the whole process again! That's how we generate long text-completions on word at a time :D
+  So the interesting bits are located within that stack of layers. This is why it's called "deep learning".
+  The mathematical transformation in each layer is called "self-attention", and it involves a lot of matrix multiplications and dot-product calculations with a learned set of "Query, Key and Value" matrixes.
+- It can be hard to understand what these layers are doing linguistically, but we can use image-processing and computer-vision as a good metaphor, since images are also grids of numbers, and we've all seen how photo-filters can transform that entire grid in lots of useful ways...
+- You can think of each layer in the transformer as being like a "mask" or "filter" that selects various interesting features from the grid, and then tweaks the image with respect to those masks and filters.
+  In image processing, you might apply a color-channel mask (chroma key) to select all the green pixels in the background, so that you can erase the background and replace it with other footage. Or you might apply a "gaussian blur" that mixes each pixel with its nearest neighbors, to create a blurring effect. Or you might do the inverse of a gaussian blur, to create a "sharpening" operation that helps you find edges...
+  But the basic idea is that you have a library of operations that you can apply to a grid of pixels, in order to transform the image (or part of the image) for a desired effect. And you can stack these transforms to create arbitrarily-complex effects.
+- The same thing is true in a linguistic transformer, where a text sequence is modeled as a matrix.
+  The language-model has a library of "Query, Key and Value" matrixes (which were learned during training) that are roughly analogous to the "Masks and Filters" we use on images.
+- Each layer in the Transformer architecture attempts to identify some features of the incoming linguistic data, an then having identified those features, it can subtract those features from the matrix, so that the next layer sees only the transformation, rather than the original.
+- We don't know exactly what each of these layers is doing in a linguistic model, but we can imagine it's probably doing things like: performing part-of-speech identification (in this context, is the word "ring" a noun or a verb?), reference resolution (who does the word "he" refer to in this sentence?), etc, etc.
+  And the "dot-product" calculations in each attention layer are there to make each word "entangled" with its neighbors, so that we can discover all the ways that each word is connected to all the other words in its context.
+- So... that's how we generate word-predictions (aka "inference") at runtime!
+- By why does it work?
+- To understand why it's so effective, you have to understand a bit about the training process.
+  The flow of data during inference always flows in the same direction. It's called a "feed-forward" network.
+  But during training, there's another step called "back-propagation".
+  For each document in our training corpus, we go through all the steps I described above, passing each word into our feed-forward neural network and making word-predictions. We start out with a completely randomized set of QKV matrixes, so the results are often really bad!
+- During training, when we make a prediction, we KNOW what word is supposed to come next. And we have a numerical representation of each word (4096 numbers in a column!) so we can measure the error between our predictions and the actual next word. Those "error" measurements are also represented as columns of 4096 numbers (because we measure the error in every dimension).
+- So we take that error vector and pass it backward through the whole system! Each layer needs to take the back-propagated error matrix and perform tiny adjustments to its Query, Key, and Value matrixes. Having compensated for those errors, it reverses its calculations based on the new QKV, and passes the resultant matrix backward to the previous layer. So we make tiny corrections on all 96 layers, and eventually to the word-vectors in the dictionary itself!
+  Like I said earlier, we don't know exactly what those layers are doing. But we know that they're performing a hierarchical decomposition of concepts. (@copied)
+
+## What Really is Attention?
+
+Attention is the principal element of transformer architecture. In essence, attention is a mechanism that can allow the neural network to pay more attention to the part of input data that contains meaningful information and pay less attention to the rest of the input.
+
+[The Transformer Blueprint: A Holistic Guide to the Transformer Neural Network Architecture](https://deeprevision.github.io/posts/001-transformer/)
