@@ -2,8 +2,9 @@
 title: Final Frontier
 tags: ['Deployment']
 date: '2023-07-31'
+lastmod: '2023-08-18'
 images: ['/static/images/posts/mail.jpg']
-summary: Multiple ways to get your thing out to people. I have used AWS S3 hosting with Gitlab CI/CD, Vercel (git=> github => hosting ), Netifly(including Drag & Drop of build), Cloudflare workers. Domain from Hostinger.
+summary: The process of deploying web applications from scratch involves three kinds of activities: provisioning hardware, installing and configuring software, and deploying application code. There are multiple ways of how we can do this. Manual to automated, dedicated servers to cloud, vertical and horizontal scal- ing, virtual machines, or container orchestration.
 draft: false
 canonicalUrl: https://www.google.com
 ---
@@ -18,7 +19,26 @@ canonicalUrl: https://www.google.com
 
 <TOCInline toc={props.toc} asDisclosure toHeading={3} />
 
-Multiple ways to get your thing out to people. I have used AWS S3 hosting with Gitlab CI/CD, Vercel (git=> github => hosting ), Netifly(including Drag & Drop of build), Cloudflare workers. Domain from Hostinger.
+The process of deploying web applications from scratch involves three kinds of activities: _provisioning hardware, installing and configuring software, and deploying application code_. There are multiple ways of how we can do this. Manual to automated, dedicated servers to cloud, vertical and horizontal scaling, virtual machines, or container orchestration.
+
+Server provisioning is the process of setting up infrastructure and the essential system software. Be it bare-metal dedicated servers or virtual machines in the cloud; provisioning means getting them up and running. This involves in- stalling an operating system, configuring networking, and preparing the SSH access. With providers like Digital Ocean, a newly provisioned virtual machine is just a few clicks away.
+You may have heard about **Infrastructure as Code** (IaC), which aims to automate this initial setup with code. Infrastructure as code allows us to write a machine-readable definition of what servers have to be provided. By specifying their compute size, count, provider, and region we can do for in- frastructure what we’ll do for the system configuration.
+
+You can imagine IaC as writing a program consuming a server provider’s API. The program would call an endpoint /servers with a payload of what kind of servers you want. You would get back their IP addresses. An example of a popular tool in this space is Terraform, which implements popular cloud providers’ APIs.
+
+Once the resources have been provisioned, the next step is the configuration. Configuration management is about maintaining a desired state. It’s purpose is to configure the already provisioned servers to a specific state that can support the application at hand. Think application dependencies, NGINX configuration, the PostgreSQL pg_hba.conf file, or firewalld settings.
+
+To configure various components to the desired state, we’ll automate this process using Bash and SSH connection. Some well-known tools in this space, including Ansible, are based on the same idea of executing shell commands and scripts over an SSH connection. They add a little bit more ceremony to make a larger multi-node deployment more manageable.
+
+Then they are tools like Chef or Puppet that, by default, expect a master node that acts as a hub for configuration data (holding the desired state). The other nodes run lightweight agents that can fetch the newly applied state and configure the node accordingly. This approach might be faster when a higher number of nodes are considered, but the former feels closer to doing things yourself with Bash.
+
+The last step is the application deployment. Its simplest form is most likely copying files over SFTP. In the case of Ruby and Python applications, it is perhaps uploading the files with scp and restarting the application server. But for a typical web application today, there are few more tasks to solve, from updating runtime dependencies to pre-compiling front-end assets.
+
+Then there are **Linux containers** that significantly change how we build the dependencies and approach the application delivery. A container can be similarly pushed to a server as code, or built from this code on the server side. However, most use containers in combination with a centralized repository that hosts all releases. Application deployment is then pulling the new version and replacing the previous running container without any build steps.
+
+Automation of running containerized services is container orchestration. It’s partly provisioning, partly deployment. This approach was originally in- vented for cloud providers and the consolidation of many services in corpo- rations. It usually involves moving and scaling container workloads across many nodes. Today, many developer teams adopt tools like **Kubernetes** and OpenShift with the availability of the tools’ managed offerings.
+
+### [A book on deployment](https://deploymentfromscratch.com)
 
 ### [Eating the Cloud from Outside In](https://www.swyx.io/cloudflare-go)
 
