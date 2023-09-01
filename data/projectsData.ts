@@ -79,14 +79,14 @@ const projectsData = [
     githuburl: 'https://github.com/tonyantony300/travel',
     href: 'https://mywebsite300.netlify.app',
   },
-  // {
-  //   title: 'Artist Portfolio',
-  //   description: 'A static porfolio page done with just CSS',
-  //   imgSrc: '/static/images/projects/artist-portfolio.png',
-  //   tech: ['HTML', 'CSS'],
-  //   githuburl: 'https://github.com/tonyantony300/crispy-winner',
-  //   href: 'https://dulcet-tartufo-c12503.netlify.app/',
-  // },
+  {
+    title: 'Artist Portfolio',
+    description: 'A static porfolio page done with just CSS',
+    imgSrc: '/static/images/projects/artist-portfolio.png',
+    tech: ['HTML', 'CSS'],
+    githuburl: 'https://github.com/tonyantony300/crispy-winner',
+    href: 'https://dulcet-tartufo-c12503.netlify.app/',
+  },
 ]
 
 export default projectsData
