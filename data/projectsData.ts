@@ -1,5 +1,13 @@
 const projectsData = [
   {
+    title: 'Chat App',
+    description: 'Chat interface with React and redux store, using react-chat-kit lib',
+    imgSrc: '/static/images/projects/chat.png',
+    tech: ['ReactJS', 'Redux', 'CSS'],
+    githuburl: 'https://github.com/tonyantony300/crispy-guacamole',
+    href: 'https://crispy-guacamole-seven.vercel.app',
+  },
+  {
     title: 'Huddle',
     description: 'Landing page project with styled React components',
     imgSrc: '/static/images/projects/huddle.png',
@@ -48,14 +56,14 @@ const projectsData = [
     githuburl: 'https://github.com/tonyantony300/travel',
     href: 'https://mywebsite300.netlify.app',
   },
-  {
-    title: 'Artist Portfolio',
-    description: 'A static porfolio page done with just CSS',
-    imgSrc: '/static/images/projects/artist-portfolio.png',
-    tech: ['HTML', 'CSS'],
-    githuburl: 'https://github.com/tonyantony300/crispy-winner',
-    href: 'https://dulcet-tartufo-c12503.netlify.app/',
-  },
+  // {
+  //   title: 'Artist Portfolio',
+  //   description: 'A static porfolio page done with just CSS',
+  //   imgSrc: '/static/images/projects/artist-portfolio.png',
+  //   tech: ['HTML', 'CSS'],
+  //   githuburl: 'https://github.com/tonyantony300/crispy-winner',
+  //   href: 'https://dulcet-tartufo-c12503.netlify.app/',
+  // },
   {
     title: 'Weather widget',
     description: 'A widget to fetch weather data from AccuweatherApi',
