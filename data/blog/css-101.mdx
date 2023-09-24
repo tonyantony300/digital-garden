@@ -28,58 +28,41 @@ The browser loads the HTML, and converts it into a DOM (Document Object Model).T
 <link rel="stylesheet" href="style.css" >
 ```
 
-### Selectors
+## Important concepts
 
-Used to target elements
+- Box Model
+- Selectors
+- The cascade
+- Specificity
+- Inheritance
+- Color
+- Sizing Units
+- Layout
+- Flexbox
+- Grid
+- Logical Properties
+- Spacing
+- Pseudo-elements
+- Pseudo-classes
+- Borders
+- Shadows
+- Focus
+- Z-index and stacking contexts
+- Functions
+- Gradients
+- Animations
+- Filters
+- Blend modes
+- Lists
+- Transitions
+- Overflow
+- Background
+- Text and typography
 
-- Universal selector(\*)
-- attribute selector(input[type=“email”])
-- Grouping selectors(h1,h2)
-- Descendent and Child combinators(div .class #id and ul > li)
-- compound selectors(div.class - no space)
+[css notes from google](https://web.dev/learn/css/)
 
-### CSS: all about boxes - box model
+[Visual guide to css](https://cssreference.io)
 
-It is a concept where everything in a browser is considered to be box shaped with Content box(blue), padding(green), border(light orange) and margin(Orange) as seen in computed styles
-
-Something you'll notice about writing CSS: a lot of it is about boxes. This includes setting size, color, and position. Most HTML elements on your page can be thought of as boxes sitting on top of other boxes.
-
-- Padding goes inside of an elementMargin is like a force field around borderHere, the height and width specified will be for the content box only, margin, padding and border will be additional
-- Alternative box modebox-sizing: border-boxif we specify height and width, that will be for the for the whole box, ie, padding and border will be included in box-width. If we specify padding again, the content box size will reduce, same goes for padding and border.
-
-- Important - display properlyThis is a property automatically set by browser for elems differently, ex for div display: block, for span display: inlineFor inline elements width and height does not apply
-
-- Inline-block brings best of both worlds from block & InlineAnd there is display none. It takes element out of document, used in making website response and more. Inline-block elements give more flexibility interms of what we can tweak
-
-### Specificity
-
-Specificity deals with the priority by which styles are being applied
-
-specificity is calculated by 3 digits(0,2,1) number of (ids, classes, elements) considered from left. Combinator symbols are avoided
-
-- Specificity Hierarchy : Every element selector has a position in the Hierarchy.
-
-<Image
-  className="w-full rounded-xl"
-  alt="library shelf"
-  src="/static/images/posts/specificity.svg"
-  layout="responsive"
-  width={450}
-  height={250}
-/>
-
-1. Inline style: Inline style has highest priority.
-2. Identifiers(ID): ID have the second highest priority.
-3. Classes, pseudo-classes and attributes: Classes, pseudo-classes and attributes are come next.
-4. Elements and pseudo-elements: Elements and pseudo-elements have lowest priority.
-
-### Cascade
-
-The cascade is an algorithm that defines how user agents combine property values originating from different sources. The cascade defines the origin and layer that takes precedence when declarations in more than one origin or cascade layer set a value for a property on an element.
-
-The cascade lies at the core of CSS, as emphasized by the name: Cascading Style Sheets. When a selector matches an element, the property value from the origin with the highest precedence gets applied, even if the selector from a lower precedence origin or layer has greater specificity.
-
-￼
 [Cool reference on cascade](https://2019.wattenberger.com/blog/css-cascade)
 
 [MDN](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)

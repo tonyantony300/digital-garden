@@ -42,15 +42,15 @@ I recently went through the entire beta React docs (took me about 3 weeks) and w
 
 1. The virtual DOM. When I'm writing jQuery-based code, I have to write both a component template and code that updates the DOM in response to input; when I'm writing code for a virtual DOM, the component template is sufficient to update the DOM and I don't have to write that extra code, so there are fewer chances for bugs to creep in.
 
-1.1. Virtual DOM -- but this also includes DOM diffing, which makes it extremely efficient to re-render "the entire app" whenever a change happens (because you're not actually rendering it all but you largely don't have to know that).
+1.1. Virtual DOM -- but this also includes DOM diffing, which makes it extremely efficient to re-render "the entire app" whenever a change happens (because you're not actually rendering it all but you largely don't have to know that). So it becomes SPA - A Single Page Application is a web application or website that interacts with the web browser by dynamically rewriting the current web page with new data from the web server, instead of the default method of the browser loading entire new pages. This means that the URL of your website will not change completely (page will not reload), instead it will keep getting content and rewriting the DOM with it instead of loading a new page.
 
 2. HTML-like syntax embedded in Javascript (JSX). I didn't like this at first until I configured Sublime Text to highlight embedded HTML correctly. Embedded HTML has pros and cons, but I think it's a net positive.
 
 2.1. JSX -- but unlike HTML this is just syntactic sugar for the underlying API. It may look like someone got HTML in your JS but it's really just syntax for nesting components and the rest is plain old JavaScript (compared to HTML templates where you have to learn a proprietary template language to do the same things you can already do in JS).
 
-3. Unidirectional (one-way) data flow with pure components. This isn't enforced by React itself but if you stick to constructing your components this way (which companion libraries like Redux encourage you to do), your entire application becomes easier to reason about because you can think of your React code as one giant render function.
+3. Unidirectional (one-way) data flow with pure components(from parent to child. In essence this means child components are not able to update the data that is coming from parent component). This isn't enforced by React itself but if you stick to constructing your components this way (which companion libraries like Redux encourage you to do), your entire application becomes easier to reason about because you can think of your React code as one giant render function.If a Child Component needs to send a message to its Parent, it has to use a special technique, inversal data flow(Send down the function as props to the child component, almost like setState callback as props and invoke it inside child. Kinda hack way which implies uni directional is encouraged or use redux with common store)
 
-- React projects also typically include new tech like ES2015, webpack, hot code reloading, and Redux with its time-traveling debugger. You can build your own stack that uses a virtual DOM library, embedded HTML, ES2015, and so on, but it's helpful to start with a common stack that many people understand. That's why React is interesting.
+- React projects also typically include new tech like ES2015, webpack(module bundler), hot code reloading(Hot reloading only refreshes the files that were changed without losing the state of the app), and Redux with its time-traveling debugger. You can build your own stack that uses a virtual DOM library, embedded HTML, ES2015, and so on, but it's helpful to start with a common stack that many people understand. That's why React is interesting.
 
 - Combined with immutable state manager like Redux, it can dramatically simplify front end development.
 
@@ -118,3 +118,7 @@ This creates an ES6 class MyComponent which extends the React.Component class. S
 - [free code camp](https://www.freecodecamp.org/learn/front-end-development-libraries/)
 - [react patterns](http://lucasmreis.github.io/blog/simple-react-patterns/)
 - [common mistakes](https://www.joshwcomeau.com/react/common-beginner-mistakes/)
+
+## Redux
+
+Redux is one of the most adopted state management libraries for large scale React applications. Besides its ability to make your application more predictable, the ecosystem that has evolved around it makes Redux the best solution for large scale applications. Another advantage of Redux is the developer tool that makes it easy to trace when, where, why, and how your application’s state has changed.
