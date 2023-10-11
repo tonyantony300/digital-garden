@@ -1,0 +1,116 @@
+---
+title: How Javascript work
+tags: ['JavaScript']
+date: '2023-10-10'
+images: ['/static/images/posts/matrix.jpg']
+draft: false
+summary: 'Knowing this makes you the best developer in the world (giggles)'
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/algo.png"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+## On how Javascript works
+
+**Motivation:** I had been asked about questions in and around this topic for the nth time for the past two years. People are taught to jump hoops and solve puzzles to clear exams in this education system. It altered these tech people/good students so that the only thing that will satisfy their anxiety over hiring process success is to make candidates jump through these vain hoops. Sure, they are obviously busy with much more pressing issues.
+
+That aside, I was solely working with CSS for the past few months and when I came back to JS, I found some irregularities with the flow by which JS works, So I am going to take a look into how JS works.
+
+**Caveats:** I started out with JS after 2021, needless to say ES6 was here when I got here, await was here when I got here, var was a thing in the past, React and Redux are where I started out.
+
+**First stop.**
+
+### Event loop
+
+In JavaScript, the event loop is a fundamental concept that manages the execution of asynchronous code, allowing your programs to handle events, callbacks, and other non-blocking operations efficiently. It is a crucial part of JavaScript's single-threaded, non-blocking, and event-driven nature, which makes it suitable for tasks like handling user interactions in web applications.
+
+Here's how the event loop works:
+
+1. **Call Stack:** JavaScript uses a call stack to keep track of the execution of synchronous code. When a function is called, a new frame is pushed onto the stack, and when the function returns, the frame is popped off the stack.
+
+2. **Event Queue:** When asynchronous operations like user interactions (e.g., clicking a button), timers, or network requests are encountered in your code, they are not executed immediately. Instead, they are scheduled to be processed later. These asynchronous tasks are placed in an event queue.
+
+3. **Event Loop:** The event loop is a continuous process that checks both the call stack and the event queue. It continually monitors the stack for the presence of frames (synchronous code) to execute. If the stack is empty, it looks into the event queue to see if there are any tasks waiting to be executed.
+
+4. **Execution of Tasks:** When the event loop finds a task in the queue, it dequeues it and pushes it onto the call stack, where it's executed. This allows asynchronous code to be executed in the order it was added to the queue, ensuring that tasks are processed one at a time.
+
+5. **Callback Functions:** Often, asynchronous operations involve callback functions, which are functions passed as arguments to other functions and are executed when a specific event occurs (e.g., when a file is loaded or a timer expires). These callback functions are added to the event queue once the event they are waiting for happens.
+
+6. **Concurrency and Non-Blocking:** While the event loop is constantly checking for tasks in the queue, it doesn't block the execution of other code. This non-blocking behavior ensures that the application remains responsive, even when dealing with time-consuming tasks.
+
+Here's a simplified example of how the event loop works:
+
+```javascript
+console.log('Start')
+
+setTimeout(function () {
+  console.log('Timeout callback')
+}, 1000)
+
+console.log('End')
+```
+
+In this example, "Start" and "End" will be logged immediately because they are synchronous code. The "Timeout callback" will be logged after approximately one second due to the asynchronous `setTimeout` function, which schedules the callback for execution.
+
+**Next Stop.**
+
+### Asynchronous JS
+
+Callback hell - _legacy for me._
+
+```
+let production = () => {
+  setTimeout(() => {
+    console.log("production has started");
+    setTimeout(() => {
+      console.log("The fruit has been chopped");
+      setTimeout(() => {
+        console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} Added`);
+        setTimeout(() => {
+          console.log("start the machine");
+          setTimeout(() => {
+            console.log(`Ice cream placed on ${stocks.holder[1]}`);
+            setTimeout(() => {
+              console.log(`${stocks.toppings[0]} as toppings`);
+              setTimeout(() => {
+                console.log("serve Ice cream");
+              }, 2000);
+            }, 3000);
+          }, 2000);
+        }, 1000);
+      }, 1000);
+    }, 2000);
+  }, 0);
+};
+
+```
+
+Promises to the rescue - Is it? I never personally interacted with it so far. Sure I have used await and that’s it. • Pending: This is the initial stage. Nothing happens here. Think of it like this, your customer is taking their time giving you an order. But they haven't ordered anything yet.
+
+- Resolved: This means that your customer has received their food and is happy.
+- Rejected: This means that your customer didn't receive their order and left the restaurant.This is supposed to be the better way to write promises and it helps us keep our code simple and clean. - Duh!!!So, this is how we implement async Javasript now.
+
+```
+async function kitchen(){
+    try{
+       await abc;
+       }   catch(error){
+         }   finally {
+           console.log("Runs code anyways")   }
+           }
+
+kitchen()
+```
+
+The keyword await makes JavaScript wait until a promise settles and returns its result.
+I use fetch Api ALL the time, await is actually waiting for a promise, ie, fetch returns a promise behind the screen, _Do I need to know Promises to make an asynchronous Js call?_ **Nope.**
+
+[My reference](https://www.freecodecamp.org/news/javascript-async-await-tutorial-learn-callbacks-promises-async-await-by-making-icecream/)
