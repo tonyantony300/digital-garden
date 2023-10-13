@@ -1,5 +1,13 @@
 const projectsData = [
   {
+    title: 'Modern Landing page',
+    description: 'Completed as part of CSS couse',
+    imgSrc: '/static/images/projects/swipe.png',
+    tech: ['CSS', 'HTML'],
+    githuburl: 'https://github.com/tonyantony300/',
+    href: 'https://6529702b3671ba170f453015--darling-kleicha-193b6c.netlify.app',
+  },
+  {
     title: 'Modern React with Redux Certification',
     description: 'Recieved after completing 54 hour course work and projects',
     imgSrc: '/static/images/projects/react-proof.jpg',
