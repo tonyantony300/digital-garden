@@ -1,5 +1,13 @@
 const projectsData = [
   {
+    title: 'Dashboard',
+    description: 'Dashboard for an HR product, translated from the design in figma',
+    imgSrc: '/static/images/projects/texaculture.png',
+    tech: ['CSS', 'HTML'],
+    githuburl: 'https://github.com/tonyantony300/',
+    href: 'https://65301dfb1e5285371a3f3f79--beautiful-alfajores-4a55c6.netlify.app',
+  },
+  {
     title: 'Modern Landing page',
     description: 'Completed as part of CSS couse',
     imgSrc: '/static/images/projects/swipe.png',
