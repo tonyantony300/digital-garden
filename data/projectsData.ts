@@ -26,7 +26,7 @@ const projectsData = [
   {
     title: 'The HTML & CSS Bootcamp 2023 Edition',
     description: '37 of hours Bootcamp I completed as part of upskilling journey ',
-    imgSrc: '/static/images/projects/css-proof',
+    imgSrc: '/static/images/projects/css-proof.png',
     tech: ['CSS', 'Flexbox'],
     githuburl: 'https://github.com/tonyantony300/',
     href: 'https://www.udemy.com/certificate/UC-d722dc8c-be03-4a08-89f8-aa66024ab2c6/',
