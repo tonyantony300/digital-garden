@@ -13,7 +13,7 @@ const projectsData = [
     imgSrc: '/static/images/projects/swipe.png',
     tech: ['CSS', 'HTML'],
     githuburl: 'https://github.com/tonyantony300/',
-    href: 'https://6529702b3671ba170f453015--darling-kleicha-193b6c.netlify.app',
+    href: 'https://653d1e4feb14883d039bbdbb--ephemeral-dragon-254d11.netlify.app',
   },
   {
     title: 'Modern React with Redux Certification',
@@ -24,20 +24,20 @@ const projectsData = [
     href: 'https://www.udemy.com/certificate/UC-ebe6e57e-1d04-4732-ad00-e2f8418ed56c/',
   },
   {
+    title: 'The HTML & CSS Bootcamp 2023 Edition',
+    description: '37 of hours Bootcamp I completed as part of upskilling journey ',
+    imgSrc: '/static/images/projects/css-proof',
+    tech: ['CSS', 'Flexbox'],
+    githuburl: 'https://github.com/tonyantony300/',
+    href: 'https://www.udemy.com/certificate/UC-d722dc8c-be03-4a08-89f8-aa66024ab2c6/',
+  },
+  {
     title: 'Javascript DSA Certification',
     description: 'Received from freecode camp after completing course',
     imgSrc: '/static/images/projects/algo.png',
     tech: ['Javascript'],
     githuburl: 'https://github.com/tonyantony300/',
     href: 'https://www.freecodecamp.org/certification/tony_antny/javascript-algorithms-and-data-structures',
-  },
-  {
-    title: 'Chat App',
-    description: 'Interactive Chat interface with React and redux store, using react-chat-kit lib',
-    imgSrc: '/static/images/projects/chat.png',
-    tech: ['ReactJS', 'Redux', 'CSS'],
-    githuburl: 'https://github.com/tonyantony300/crispy-guacamole',
-    href: 'https://crispy-guacamole-seven.vercel.app',
   },
   {
     title: 'Forkify',
