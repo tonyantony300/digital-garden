@@ -1,10 +1,18 @@
 const projectsData = [
   {
+    title: 'Frontend Compilation',
+    description: 'Where I Hone my frontend skills, So far completed 12 small front end projects',
+    imgSrc: '/static/images/projects/constellation.png',
+    tech: ['HTML', 'CSS', 'Javascript'],
+    githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
+    href: 'https://frontend-compilation.vercel.app',
+  },
+  {
     title: 'Dashboard',
     description: 'Dashboard for an HR product, translated from the design in figma',
     imgSrc: '/static/images/projects/texaculture.png',
     tech: ['CSS', 'HTML'],
-    githuburl: 'https://github.com/tonyantony300/',
+    githuburl: 'https://github.com/tonyantony300/Frontend-compilation/tree/main/texaculture',
     href: 'https://65301dfb1e5285371a3f3f79--beautiful-alfajores-4a55c6.netlify.app',
   },
   {
