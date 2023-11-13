@@ -2,7 +2,7 @@ const projectsData = [
   {
     title: 'Frontend Compilation',
     description: 'Where I Hone my frontend skills, In the most sensible way',
-    imgSrc: '/static/images/projects/constellation.png',
+    imgSrc: '/static/images/projects/mini-set1.png',
     tech: ['HTML', 'CSS', 'Javascript'],
     githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
     href: 'https://frontend-compilation.vercel.app',
@@ -10,7 +10,7 @@ const projectsData = [
   {
     title: 'Frontend Compilation 2',
     description: 'Where I Hone my frontend skills, by doing curated collection of mini-projects',
-    imgSrc: '/static/images/projects/constellation.png',
+    imgSrc: '/static/images/projects/mini-set2.png',
     tech: ['HTML', 'CSS', 'Javascript'],
     githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
     href: 'https://frontend-compilation-beta.vercel.app',
