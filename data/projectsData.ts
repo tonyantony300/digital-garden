@@ -1,7 +1,7 @@
 const projectsData = [
   {
     title: 'Frontend Compilation',
-    description: 'Where I Hone my frontend skills, by doing curate list of mini-projects',
+    description: 'Where I Hone my frontend skills, In the most sensible way',
     imgSrc: '/static/images/projects/constellation.png',
     tech: ['HTML', 'CSS', 'Javascript'],
     githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
@@ -9,11 +9,11 @@ const projectsData = [
   },
   {
     title: 'Frontend Compilation 2',
-    description: 'Where I Hone my frontend skills, by doing curate list of mini-projects',
+    description: 'Where I Hone my frontend skills, by doing curated collection of mini-projects',
     imgSrc: '/static/images/projects/constellation.png',
     tech: ['HTML', 'CSS', 'Javascript'],
     githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
-    href: 'frontend-compilation-beta.vercel.app',
+    href: 'https://frontend-compilation-beta.vercel.app',
   },
   {
     title: 'Dashboard',
