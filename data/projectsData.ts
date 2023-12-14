@@ -1,6 +1,6 @@
 const projectsData = [
   {
-    title: 'Frontend Compilation',
+    title: 'Frontend Collection 1',
     description: 'Where I Hone my frontend skills, In the most sensible way',
     imgSrc: '/static/images/projects/mini-set1.png',
     tech: ['HTML', 'CSS', 'Javascript'],
@@ -8,12 +8,20 @@ const projectsData = [
     href: 'https://frontend-compilation.vercel.app',
   },
   {
-    title: 'Frontend Compilation 2',
+    title: 'Frontend Collection 2',
     description: 'Where I Hone my frontend skills, by doing curated collection of mini-projects',
     imgSrc: '/static/images/projects/mini-set2.png',
     tech: ['HTML', 'CSS', 'Javascript'],
     githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
     href: 'https://frontend-compilation-beta.vercel.app',
+  },
+  {
+    title: 'Frontend  Collection 3',
+    description: 'Where I Hone my frontend skills, by doing curated collection of mini-projects',
+    imgSrc: '/static/images/projects/mini-set3.png',
+    tech: ['HTML', 'CSS', 'Javascript'],
+    githuburl: 'https://github.com/tonyantony300/Frontend-compilation',
+    href: 'https://frontend-collection.vercel.app',
   },
   {
     title: 'Dashboard',
@@ -88,36 +96,12 @@ const projectsData = [
     href: 'https://smartpage300.netlify.app/',
   },
   {
-    title: 'Cost Estimator',
-    description: 'A static cost estimator implementaion with vanilla CSS',
-    imgSrc: '/static/images/projects/cost-estimator.png',
-    tech: ['HTML', 'CSS'],
-    githuburl: 'https://github.com/tonyantony300/crispy-winner',
-    href: 'https://lively-lokum-9ac19b.netlify.app/',
-  },
-  {
-    title: 'Blog post',
-    description: 'A static blog page done with just CSS',
-    imgSrc: '/static/images/projects/blog-post.png',
-    tech: ['HTML', 'CSS'],
-    githuburl: 'https://github.com/tonyantony300/crispy-winner',
-    href: 'https://rococo-quokka-1e981c.netlify.app/',
-  },
-  {
     title: 'Travel Website',
     description: 'A Dynamic home page for travel web application',
     imgSrc: '/static/images/projects/travel.png',
     tech: ['ReactJS', 'HTML', 'CSS'],
     githuburl: 'https://github.com/tonyantony300/travel',
     href: 'https://mywebsite300.netlify.app',
-  },
-  {
-    title: 'Artist Portfolio',
-    description: 'A static porfolio page done with just CSS',
-    imgSrc: '/static/images/projects/artist-portfolio.png',
-    tech: ['HTML', 'CSS'],
-    githuburl: 'https://github.com/tonyantony300/crispy-winner',
-    href: 'https://dulcet-tartufo-c12503.netlify.app/',
   },
 ]
 

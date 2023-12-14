@@ -1,0 +1,98 @@
+
+---
+title: Essentials to stay safe online
+tags: ['Cybersecurity', 'Cryptography']
+date: '2023-12-14'
+images: ['/static/images/posts/lockndkey.jpg']
+draft: false
+summary: 'We all have online lives, cyber threats are real if we don't build enough moat around us'
+canonicalUrl: https://www.google.com
+---
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/lockndkey.png"
+  width={450}
+  height={250}
+/>
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+## Security Best Practice - Multi-Factor Authentication
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/sharedecrets.jpeg"
+  width={450}
+  height={250}
+/>
+
+
+##  Preventing Generic Account Hacking
+
+- **Email Confirmation**: You can choose a second email to confirm access.
+- **SMS OTP**: SMS plain text One-Time Password (OTP) over the cellular network is widely used.
+
+### Miscellaneous
+
+- Use [Bitwarden](https://bitwarden.com) to generate and manage passwords in your browser. It is open-source and trusted by software engineers.
+
+> MFA is a must, and it will eliminate 99.9% of sign-ins with compromised passwords from succeeding. In most cases, a simple SMS OTP is sufficient. This prevents generic cyber attacks aiming at taking possession of accounts.
+
+## Preventing Targeted Cyber Attacks
+
+- **Authenticator Apps OTP**: OTP through Authorization apps, which generates time-based TOTPs.
+- **Hardware Security Keys**: Use keys like YubiKey, which is a USB physical key.
+- **Multiple YubiKeys**: More than one YubiKey can be associated with the same account, one always with you, and if that one is lost, use the second one from a physically secure location you've stored previously, like a bank vault.
+
+Having multiple of these methods means one gets lost, you always have a replacement 2FA in place. That may sound insecure, but it is not - "ANY 2FA IS BETTER THAN NO 2FA".
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/mfa.png"
+  width={450}
+  height={250}
+/>
+
+
+## Hardware Security Keys
+
+Hardware-based security keys provide a fast, no-fuss way to use two-factor authentication without having to mess around with your phone. They're based on the FIDO U2F standard, developed by Google and Yubico and administered by the FIDO Alliance.
+
+### What it does:
+
+It replaces a shared secret with asymmetric cryptography.
+
+### How does the server know we are who we say we are?
+
+Asymmetric cryptography generates two codes: one we keep with us, and another we give to everybody. These two codes are mathematically related.
+
+- **Your "Public Key"**: Anyone can drop a message to you, encrypted with this key.
+- **Your "Private Key"**: Only you can decrypt messages sent to you with your public key.
+
+Asymmetric cryptography ensures secure communication and verified identities without exposing sensitive information.
+
+<Image
+  className="w-full rounded-xl"
+  alt="library shelf"
+  src="/static/images/posts/Cryptoverification.jpeg"
+  width={450}
+  height={250}
+/>
+
+
+While Yubico helped develop the standard, many companies produce security keys. Shopping for one involves considering the devices and apps you plan to use it with. Yubico offers different keys for USB-A, USB-C, or NFC connections, while Google offers a Bluetooth option.
+
+## The Best Security Key for USB-C Users
+
+- **YubiKey 5C**: Supports many security standards, including OTP, Smart Card, OpenPGP, FIDO U2F, and FIDO2. Check out the [YubiKey 5C](https://www.yubico.com/works-with-yubikey/catalog/?sort=popular).
+
+## Other Contenders
+
+- Thetis FIDO U2F Security Key
+- Google Titan Key
+- Kensington VeriMark Fingerprint Key
+
